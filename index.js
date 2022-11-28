@@ -1,22 +1,27 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
 const fs = require('fs')
+const path = require('path')
 
 const admZip = require('adm-zip');
+const { GitHub } = require('@actions/github/lib/utils');
 
 try {
     const folder = core.getInput('folder',{required: true});
     const insert_date = core.getInput('insert-date');
-    const archive_name = getArchiveName(folder, insert_date);
+    let name = core.getInput('archive-name') + '.zip';
+
+    const archiveName = getArchiveName(folder, name, insert_date);
+    const archiveFullPath = getArchiveFullPath(folder, archiveName);
 
     if(folder !== '' && folder !== undefined){
        let zip = new admZip();
        zip.addLocalFolder(folder);
-       zip.writeZip(archive_name)
+       zip.writeZip(archiveFullPath)
 
-       if (fs.existsSync(archive_name)) {
-        console.log('ddddddd Zip archive was created at: ' + archive_name)
-        core.setOutput('archive-path', archive_name)
+       if (fs.existsSync(archiveFullPath)) {
+        console.log('ddddddd Zip archive was created at: ' + archiveFullPath)
+        core.setOutput('archive-path', archiveFullPath)
      }
     }
 
@@ -24,29 +29,37 @@ try {
   core.setFailed(error.message);
 }
 
-function getArchiveName(folder, insert_date){
-    let name = core.getInput('archive-name') + '.zip';
-    console.log('getArchiveName name: ' + name)
-    if(name === undefined) return folder + '.zip';
-    else {
+function getArchiveName(folder, name, insert_date){
+    let archiveName = ''
+    if (fs.existsSync(folder)){
+        const folderName = path.dirname(folder);
+        console.log('getArchiveName folderName 1 ' + folderName)
+        if(name === undefined){
+            archiveName = folderName;
+        }else{
+            archiveName = name
+        }
+
+        console.log('getArchiveName archiveName 2 ' + archiveName)
+
         if(insert_date){
-            const formatted = getFormattedDate();
-            console.log('getArchiveName formatted: ' + formatted)
-             if(name.includes('date')){
-                name = folder + name.replace('date', formatted);
-                console.log('getArchiveName includes date name: ' + name)
-             }else{
-                name = folder + name.replace('.zip', '.' + formatted + '.zip')
-                console.log('getArchiveName not includes date name: ' + name)
-             }
+            const date = getFormattedDate();
+            console.log('getArchiveName date ' + date)
+            if(archiveName.includes('date')){
+                archiveName = archiveName.replace('date', date);
+            }
+            else{
+                archiveName = archiveName + date;
+            }
         }
-        else{
-            name = folder + name;
-            console.log('getArchiveName not includes insertdate name: ' + name)
-        }
+        console.log('getArchiveName archiveName 3 ' + archiveName)
     }
-    console.log('getArchiveName final name: ' + name)
-    return name;
+
+    return archiveName;
+}
+
+function getArchiveFullPath(name){
+    path.resolve('/' + name + '.zip')
 }
 
 function getFormattedDate(){
@@ -56,5 +69,6 @@ function getFormattedDate(){
     if(parts.length > 0){
         formatted = parts[0].replace('/',''); 
     } 
+    console.log('getFormattedDate formatted  ' + formatted)
     return formatted;
 }

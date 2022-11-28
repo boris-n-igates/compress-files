@@ -11,9 +11,9 @@ try {
     let name = core.getInput('archive-name') + '.zip';
 
     const archiveName = getArchiveName(folder, name, insert_date);
-  
-    const archiveFullPath = getArchiveFullPath(folder, archiveName);
+    const archiveFullPath = getArchiveFullPath(archiveName);
 
+    
     console.log('archiveFullPath: ' + archiveFullPath)
 
     if(folder !== '' && folder !== undefined){

@@ -12,6 +12,7 @@ try {
     let name = core.getInput('archive-name') + '.zip';
 
     const archiveName = getArchiveName(folder, name, insert_date);
+    console.log('getArchiveName archiveName 4 ' + archiveName)
     const archiveFullPath = getArchiveFullPath(folder, archiveName);
 
     console.log('archiveFullPath: ' + archiveFullPath)

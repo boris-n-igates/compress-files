@@ -1,0 +1,23 @@
+name: 'Compress Folder'
+description: 'Compress a folder into a zip file'
+inputs:
+  folder:
+    description: 'Folder to compress'
+    required: true
+    default: ''
+ insert-date:
+    description: 'Enable replacement of 'date' string in an archive-name with a current date of format ddmmyyyy'
+    required: false
+    default: false
+ archive-name:
+    description: 'Archive name, if empty then the name will be same as folder'
+    required: false
+    default: ''
+
+outputs:
+  archive-path:  
+    description: 'Path to the archive'
+
+runs:
+  using: 'node16'
+  main: 'index.js'

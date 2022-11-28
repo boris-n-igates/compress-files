@@ -61,7 +61,10 @@ function getArchiveName(folder, name, insert_date){
 }
 
 function getArchiveFullPath(name){
-   return path.resolve('/' + name + '.zip')
+    const resolved = path.resolve(name);
+ 
+    console.log('getArchiveFullPath  ' + resolved)
+   return resolved
 }
 
 function getFormattedDate(){

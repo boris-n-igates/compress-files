@@ -26,21 +26,26 @@ try {
 
 function getArchiveName(folder, insert_date){
     let name = core.getInput('archive-name') + '.zip';
-
+    console.log('getArchiveName name: ' + name)
     if(name === undefined) return folder + '.zip';
     else {
         if(insert_date){
             const formatted = getFormattedDate();
+            console.log('getArchiveName formatted: ' + formatted)
              if(name.includes('date')){
                 name = name.replace('date', formatted);
+                console.log('getArchiveName includes date name: ' + name)
              }else{
                 name = name.replace('.zip', '.' + formatted + '.zip')
+                console.log('getArchiveName not includes date name: ' + name)
              }
         }
         else{
             name = folder + name;
+            console.log('getArchiveName not includes insertdate name: ' + name)
         }
     }
+    console.log('getArchiveName final name: ' + name)
     return name;
 }
 

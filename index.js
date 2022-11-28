@@ -33,10 +33,10 @@ function getArchiveName(folder, insert_date){
             const formatted = getFormattedDate();
             console.log('getArchiveName formatted: ' + formatted)
              if(name.includes('date')){
-                name = name.replace('date', formatted);
+                name = folder + name.replace('date', formatted);
                 console.log('getArchiveName includes date name: ' + name)
              }else{
-                name = name.replace('.zip', '.' + formatted + '.zip')
+                name = folder + name.replace('.zip', '.' + formatted + '.zip')
                 console.log('getArchiveName not includes date name: ' + name)
              }
         }
@@ -51,9 +51,10 @@ function getArchiveName(folder, insert_date){
 
 function getFormattedDate(){
     const date = new Date().toLocaleString()
+    let formatted = ''
     const parts = date.split(',');
     if(parts.length > 0){
-        return parts[0].replace('/','');
+        formatted = parts[0].replace('/',''); 
     } 
-    return '';
+    return formatted;
 }

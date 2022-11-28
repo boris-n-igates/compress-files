@@ -4,7 +4,6 @@ const fs = require('fs')
 const path = require('path')
 
 const admZip = require('adm-zip');
-const { GitHub } = require('@actions/github/lib/utils');
 
 try {
     const folder = core.getInput('folder',{required: true});
@@ -12,7 +11,7 @@ try {
     let name = core.getInput('archive-name') + '.zip';
 
     const archiveName = getArchiveName(folder, name, insert_date);
-    console.log('getArchiveName archiveName 4 ' + archiveName)
+  
     const archiveFullPath = getArchiveFullPath(folder, archiveName);
 
     console.log('archiveFullPath: ' + archiveFullPath)
@@ -63,7 +62,7 @@ function getArchiveName(folder, name, insert_date){
 
 function getArchiveFullPath(name){
     const resolved = path.resolve('/');
- 
+    console.log('getArchiveFullPath name 4 ' + name)
     console.log('getArchiveFullPath  ' + path.join(resolved, name));
    return path.join(resolved, name)
 }

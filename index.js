@@ -15,7 +15,7 @@ try {
     const archiveFullPath = getArchiveFullPath(folder, archiveName);
 
     console.log('archiveFullPath: ' + archiveFullPath)
-    
+
     if(folder !== '' && folder !== undefined){
        let zip = new admZip();
        zip.addLocalFolder(folder);
@@ -34,7 +34,7 @@ try {
 function getArchiveName(folder, name, insert_date){
     let archiveName = ''
     if (fs.existsSync(folder)){
-        const folderName = path.dirname(folder);
+        const folderName = path.basename(folder);
         console.log('getArchiveName folderName 1 ' + folderName)
         if(name === undefined){
             archiveName = folderName;
@@ -61,7 +61,7 @@ function getArchiveName(folder, name, insert_date){
 }
 
 function getArchiveFullPath(name){
-    path.resolve('/' + name + '.zip')
+   return path.resolve('/' + name + '.zip')
 }
 
 function getFormattedDate(){

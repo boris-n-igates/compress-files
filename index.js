@@ -50,11 +50,10 @@ function getArchiveName(folder, insert_date){
 }
 
 function getFormattedDate(){
-    const date = new Date();
-
-    const dd = date.getDate();
-    const mm = date.getMonth() + 1; 
-    var yyyy = date.getFullYear();
-
-    return dd + mm + yyyy;
+    const date = new Date().toLocaleString()
+    const parts = date.split(',');
+    if(parts.length > 0){
+        return parts[0].replace('/','');
+    } 
+    return '';
 }

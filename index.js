@@ -15,10 +15,9 @@ try {
        zip.writeZip(archive_name)
 
        if (fs.existsSync(archive_name)) {
-        console.log('Zip archive was created at: ' + archive_name)
+        console.log('ddddddd Zip archive was created at: ' + archive_name)
         core.setOutput('archive-path', archive_name)
      }
-
     }
 
 } catch (error) {
@@ -31,17 +30,26 @@ function getArchiveName(folder, insert_date){
     if(name === undefined) return folder + '.zip';
     else {
         if(insert_date){
-            const date = new Date();
-            const dd = date.getDate();
-            const mm = date.getMonth() + 1; 
-            var yyyy = date.getFullYear();
-            const formatted = dd + mm + yyyy
+            const formatted = getFormattedDate();
              if(name.includes('date')){
-                name.replace('date', formatted);
+                name = name.replace('date', formatted);
              }else{
-                name.replace('.zip', '.' + formatted + '.zip')
+                name = name.replace('.zip', '.' + formatted + '.zip')
              }
+        }
+        else{
+            name = folder + name;
         }
     }
     return name;
+}
+
+function getFormattedDate(){
+    const date = new Date();
+
+    const dd = date.getDate();
+    const mm = date.getMonth() + 1; 
+    var yyyy = date.getFullYear();
+
+    return dd + mm + yyyy;
 }

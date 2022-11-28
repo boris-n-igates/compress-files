@@ -1,8 +1,6 @@
 const core = require('@actions/core');
-const github = require('@actions/github');
 const fs = require('fs')
 const path = require('path')
-
 const admZip = require('adm-zip');
 
 try {
@@ -13,16 +11,12 @@ try {
     const archiveName = getArchiveName(folder, name, insert_date);
     const archiveFullPath = getArchiveFullPath(archiveName);
 
-    
-    console.log('archiveFullPath: ' + archiveFullPath)
-
     if(folder !== '' && folder !== undefined){
        let zip = new admZip();
        zip.addLocalFolder(folder);
        zip.writeZip(archiveFullPath)
 
        if (fs.existsSync(archiveFullPath)) {
-        console.log('ddddddd Zip archive was created at: ' + archiveFullPath)
         core.setOutput('archive-path', archiveFullPath)
      }
     }
@@ -35,18 +29,14 @@ function getArchiveName(folder, name, insert_date){
     let archiveName = ''
     if (fs.existsSync(folder)){
         const folderName = path.basename(folder);
-        console.log('getArchiveName folderName 1 ' + folderName)
         if(name === undefined){
             archiveName = folderName;
         }else{
             archiveName = name
         }
 
-        console.log('getArchiveName archiveName 2 ' + archiveName)
-
         if(insert_date){
             const date = getFormattedDate();
-            console.log('getArchiveName date ' + date)
             if(archiveName.includes('date')){
                 archiveName = archiveName.replace('date', date);
             }
@@ -54,7 +44,6 @@ function getArchiveName(folder, name, insert_date){
                 archiveName = archiveName + date;
             }
         }
-        console.log('getArchiveName archiveName 3 ' + archiveName)
     }
 
     return archiveName;
@@ -62,8 +51,6 @@ function getArchiveName(folder, name, insert_date){
 
 function getArchiveFullPath(name){
     const resolved = path.resolve('/');
-    console.log('getArchiveFullPath name 4 ' + name)
-    console.log('getArchiveFullPath  ' + path.join(resolved, name));
    return path.join(resolved, name)
 }
 

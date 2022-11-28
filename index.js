@@ -16,6 +16,7 @@ try {
 
        if (fs.existsSync(archive_name)) {
         console.log('Zip archive was created at: ' + archive_name)
+        core.setOutput('archive-path', archive_name)
      }
 
     }

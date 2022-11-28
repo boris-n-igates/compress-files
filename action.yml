@@ -5,10 +5,12 @@ inputs:
     description: 'Folder to compress'
     required: true
     default: ''
+
  insert-date:
-    description: 'Enable replacement of 'date' string in an archive-name with a current date of format ddmmyyyy'
+    description: 'Enable replacement of date string in an archive-name with a current date of format ddmmyyyy'
     required: false
     default: false
+    
  archive-name:
     description: 'Archive name, if empty then the name will be same as folder'
     required: false

@@ -61,10 +61,10 @@ function getArchiveName(folder, name, insert_date){
 }
 
 function getArchiveFullPath(name){
-    const resolved = path.resolve(name);
+    const resolved = path.resolve('/');
  
-    console.log('getArchiveFullPath  ' + resolved)
-   return resolved
+    console.log('getArchiveFullPath  ' + path.join(resolved, name));
+   return path.join(resolved, name)
 }
 
 function getFormattedDate(){

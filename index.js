@@ -14,6 +14,8 @@ try {
     const archiveName = getArchiveName(folder, name, insert_date);
     const archiveFullPath = getArchiveFullPath(folder, archiveName);
 
+    console.log('archiveFullPath: ' + archiveFullPath)
+    
     if(folder !== '' && folder !== undefined){
        let zip = new admZip();
        zip.addLocalFolder(folder);
@@ -67,8 +69,8 @@ function getFormattedDate(){
     let formatted = ''
     const parts = date.split(',');
     if(parts.length > 0){
-        formatted = parts[0].replace('/',''); 
+        const reg = new RegExp('/', 'g')
+        formatted = parts[0].replace(reg,''); 
     } 
-    console.log('getFormattedDate formatted  ' + formatted)
     return formatted;
 }

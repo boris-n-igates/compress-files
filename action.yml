@@ -20,6 +20,11 @@ outputs:
   archive-path:  
     description: 'Path to the archive'
 
+  archive-name:  
+    description: 'Archive name'
+
+    
+
 runs:
   using: 'node16'
   main: 'index.js'

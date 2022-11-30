@@ -8,6 +8,8 @@ try {
     const insert_date = core.getInput('insert-date');
     let name = core.getInput('archive-name') + '.zip';
 
+    core.info(`input archive-name: ${name}`)
+
     const archiveName = getArchiveName(folder, name, insert_date);
     const archiveFullPath = getArchiveFullPath(archiveName);
 
@@ -44,11 +46,16 @@ function getArchiveName(folder, name, insert_date){
                 archiveName = archiveName.replace('date', date);
             }
             else{
-                archiveName = archiveName + date;
+                const parts = archiveName.split('.');
+                if(parts.length > 0){
+                    parts[0] = parts[0] + "." + date
+                }
+                archiveName = parts.join('.')
+
             }
         }
     }
-
+    core.info(`getArchiveName: ${archiveName}`)
     return archiveName;
 }
 

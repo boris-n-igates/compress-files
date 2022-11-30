@@ -19,6 +19,8 @@ try {
        if (fs.existsSync(archiveFullPath)) {
         core.setOutput('archive-path', archiveFullPath)
         core.setOutput('archive-name', archiveName)
+        core.info(`archive-path: ${archiveFullPath}`)
+        core.info(`archive-name: ${archiveName}`)
      }
     }
 
